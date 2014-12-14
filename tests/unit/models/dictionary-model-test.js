@@ -2,6 +2,7 @@ import {
   moduleForModel,
   test
 } from 'ember-qunit';
+import DS from 'ember-data';
 
 moduleForModel('dictionary-model', 'DictionaryModel', {
   // Specify the other units that are required for this test.
