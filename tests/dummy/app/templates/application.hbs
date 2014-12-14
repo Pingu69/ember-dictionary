@@ -1,3 +1,26 @@
-<h2 id='title'>Welcome to Ember.js</h2>
+<h1 id='title'>Ember Dictonary</h1>
+
+<p>
+	An Ember CLI addon which provides a <code>dictionary</code> data type to Ember Data. This provided through two classes:
+	<ul>
+		<li>
+			<classname>DictonaryModel</classname>
+			<description> provides a simple extension of the Ember Model class which ensures that the dictionary -- including deep object and arrays -- are still observable</description>
+		</li>
+		<li>
+			<classname>DictonaryTransform</classname>
+			<description> serializes and deserializes the dictionary's hash attributes between the Ember Data store and the RESTful API </description>
+		</li>
+	</ul>
+</p>
+
+<p>
+	This dummy app lets you play around with the dictionary object. In this app we've defined a model called <i>dummy</i> (which extends the <classname>DictionaryModel</classname>) 
+	and has a single property: <code>dictionary</code> which is of type "dictionary":	
+</p>
+<pre>
+	dictionary: DS.attr('dictionary')
+</pre>
+
 
 {{outlet}}

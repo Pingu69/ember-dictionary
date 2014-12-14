@@ -1,3 +1,30 @@
 html, body {
   margin: 20px;
+  font-size: 16px;
+  line-height: 1.1rem;
+}
+
+li {
+  line-height: 1.4rem;
+}
+
+classname {
+	padding: 0;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	margin: 0;
+	font-size: 85%;
+	background-color: rgba(0,0,0,0.04);
+	border-radius: 3px;
+	font-family:  Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+	box-sizing: border-box;
+}
+classname:before {
+	letter-spacing: -0.2em;
+	content: "\00a0";
+}
+
+classname:after {
+	letter-spacing: -0.2em;
+	content: "\00a0";
 }
