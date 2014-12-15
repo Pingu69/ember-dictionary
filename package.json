@@ -1,6 +1,6 @@
 {
   "name": "ember-dictionary",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -33,7 +33,7 @@
     "glob": "^4.0.5",
     "morgan": "^1.5.0"
   },
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "A Dictionary type for Ember Data.",
   "keywords": [
     "ember-addon"
   ],
