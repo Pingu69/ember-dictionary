@@ -2,6 +2,7 @@ import DS from 'ember-data';
 
 export default DS.Transform.extend({
 	deserialize: function(toTraverse) {
+		console.log('deserialising dictionary');
 		var hash;
 		if (Ember.isArray(toTraverse)) {
 			return Ember.A(toTraverse.map(function(item){
@@ -17,6 +18,7 @@ export default DS.Transform.extend({
 		}
 	},
 	serialize: function(deserialized) {
+		console.log('serialising dictionary');
 		return deserialized;
 	},
 	generatePlainObject: function(keys, values) {
