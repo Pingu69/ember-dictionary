@@ -17,6 +17,7 @@ export default DS.Model.extend({
 		}
 	},
 	addDynamicObserver: function(rootObservedProperty) {
+		console.log('adding observer for %s', rootObservedProperty);
 		// save the initial values in case change takes place
 		// note: would be nice to leverage Ember's `_data` property but that's being overwritten by default
 		var initialValues = this.get('_initialValues');
@@ -74,15 +75,12 @@ export default DS.Model.extend({
 	},
 	_initialise: function() {
 		var self = this;
-		try {
-			this.eachAttribute(function(prop,meta) {
-				if(meta.type === "dictionary") {
-					Ember.addObserver(self, prop, self, Ember.run.bind(self, self.addDynamicObserver, prop));
-				}
-			});			
-		} catch (e) {
-			console.warning('Dictionary mixin did not initialise. Note: the dictionary mixin should only be used by a Model-derived class.');
-		}
+		this.eachAttribute(function(prop,meta) {
+			if(meta.type === "dictionary") {
+				console.log('adding %s', prop);
+				Ember.addObserver(self, prop, self, Ember.run.bind(self, self.addDynamicObserver, prop));
+			}
+		});			
 	}.on('init'),
 	_clearOnUpdate: function() {
 		var attributes = this.get('_attributes');

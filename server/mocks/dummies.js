@@ -4,7 +4,7 @@ module.exports = function(app) {
 
 	dummyRouter.get('/', function(req, res) {
 		res.send({
-			"dummy": []
+			"dummies": []
 		});
 	});
 
@@ -16,7 +16,9 @@ module.exports = function(app) {
 		res.send({
 			"dummy": {
 				"id": req.params.id,
-		  	  	"dictionary": {
+				foo: 'a string',
+				bar: 456,
+		  	  	baz: {
 		  	  		"one": 1,
 					"two": "two",
 					"three": false,
@@ -42,5 +44,5 @@ module.exports = function(app) {
 		res.status(204).end();
 	});
 
-	app.use('/api/dummy', dummyRouter);
+	app.use('/dummies', dummyRouter);
 };

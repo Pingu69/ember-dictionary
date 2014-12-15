@@ -28,10 +28,10 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = true;
 	ENV.contentSecurityPolicy = {
 	    'default-src': "'unsafe-eval' http://cloudfront.net https://d3ijcis4e2ziok.cloudfront.net",
-	    'script-src': "'self'",
+	    'script-src': "'self' 'unsafe-eval'",
 	    'font-src': "'self' http://fonts.gstatic.com http://fonts.googleapis.com",
 	    'connect-src': "'self'",
-	    'img-src': "'self'",
+	    'img-src': "'self' 'unsafe-inline'",
 	    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
 	    'media-src': "'self'"
 	  }
