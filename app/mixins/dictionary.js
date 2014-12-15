@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 
-export default DS.Model.extend({
+export default Ember.Mixin.create({
 	registerRecursively: function(toTraverse, path, propsToObserve) {
 		if (Ember.isArray(toTraverse)) {
 			propsToObserve.addObject(path + '.@each');
@@ -75,12 +75,15 @@ export default DS.Model.extend({
 	},
 	_initialise: function() {
 		var self = this;
-		this.eachAttribute(function(prop,meta) {
-			if(meta.type === "dictionary") {
-				console.log('adding %s', prop);
-				Ember.addObserver(self, prop, self, Ember.run.bind(self, self.addDynamicObserver, prop));
-			}
-		});			
+		try {
+			this.eachAttribute(function(prop,meta) {
+				if(meta.type === "dictionary") {
+					Ember.addObserver(self, prop, self, Ember.run.bind(self, self.addDynamicObserver, prop));
+				}
+			});			
+		} catch (e) {
+			console.warning('Dictionary mixin did not initialise. Note: the dictionary mixin should only be used by a Model-derived class.');
+		}
 	}.on('init'),
 	_clearOnUpdate: function() {
 		var attributes = this.get('_attributes');

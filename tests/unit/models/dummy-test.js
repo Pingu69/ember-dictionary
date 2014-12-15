@@ -3,7 +3,7 @@ import {
   test
 } from 'ember-qunit';
 import DS from 'ember-data';
-import DictionaryModel from '../../../models/dictionary-model';
+// import DictionaryMixin from '../../../mixins/dictionary-model';
 import Ember from 'ember';
 
 moduleForModel('dummy', 'Dummy Dictionary', {

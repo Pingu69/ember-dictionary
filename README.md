@@ -1,8 +1,8 @@
 # ember-dictionary
 
-Adds a `Model` and a `Transform` class so that users can add a "dictionary" object to their Ember-Data models:
+Adds a `Mixin` and a `Transform` class so that users can add a "dictionary" object to their Ember-Data models:
 
-	export default DictionaryModel.extend({
+	export default DS.Model.extend(DictionaryMixin, {
 		foo: DS.attr('string'),
 		bar: DS.attr('number'),
 		baz: DS.attr('dictionary')
@@ -22,36 +22,32 @@ Although maybe a statement of the obvious, this addon is also dependant on your 
 
 ## Usage ##
 
-* If you want to convert a model to a "dictionary enabled model", change from:
+* Adding support for dictionaries in your model involves adding the mixin as stated below:
 	
 	````javascript
-	export default DS.Model.extend({
-	   // you're model goes here
+	import DictionaryMixin from 'ember-dictionary/mixins/dictionary';
+	export default DS.Model.extend(DictionaryMixin, {
+	   // your model goes here
 	});
 	````
 
-	to 
+	> While there is a `DictionaryTransform` that needs to be used there is nothing you explicitly need to do start using this as the Transform will already exist in the Ember apps namespace.
 
-	````javascript
-	import DictionaryModel from 'ember-dictionary';
-	export default DictionaryModel.extend({
-	   // you're model goes here
-	});
-	````
-
-* To aid in this process a generator has been included so that if you're creating a new model you can simply type:
+* New models can be created with a blueprint:
 
 	````javascript
 	ember generate dmodel [model-name]
 	````
 
+	> Note: my clumsy attempt to copy over Ember's default *model* blueprint didn't work ... will get this fixed at some point, happy to take a PR
+
 ## What's in the Box? ##
 
 This addon will add three things:
 
-1. `DictionaryModel` - provides a few housekeeping methods to ensure the dictionaries are observed correctly but otherwise serves as a very close cousin to the `Ember.Model` parent class.
+1. `DictionaryMixin` - housekeeping methods to ensure models support dictionaries 
 2. `DictionaryTransform` - serializes and deserializes the dictionary.
-3. `dmodel` - a blueprint for Model's which contain "dictionaries"; this is a copy of the Ember CLI's model blueprint with the minor variation being that it inherits from `DictionaryModel` than `Model`
+3. `dmodel` blueprint - a blueprint for Model's which contain "dictionaries"
 
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).

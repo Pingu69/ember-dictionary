@@ -1,8 +1,8 @@
 import DS from 'ember-data';
-import DictionaryModel from '../models/dictionary-model';
+import DictionaryMixin from '../mixins/dictionary';
 import Ember from 'ember';
 
-export default DictionaryModel.extend({
+export default DS.Model.extend(DictionaryMixin, {
 	foo: DS.attr('string'),
 	bar: DS.attr('number'),
 	baz: DS.attr('dictionary', {
