@@ -6,12 +6,12 @@ export default Ember.Mixin.create({
 		if (Ember.isArray(toTraverse)) {
 			propsToObserve.addObject(path + '.@each');
 			if (toTraverse.length > 0){
-				this.registerRecursively(toTraverse[0], path + '.@each', propsToObserve);  
+				this.registerRecursively(toTraverse[0], path + '.@each', propsToObserve);
 			}
 		} else if (!(toTraverse instanceof Ember.Object)) {
 			propsToObserve.addObject(path);
 		} else {
-			Ember.keys(toTraverse).forEach(function(propertyName) {
+			Object.keys(toTraverse).forEach(function(propertyName) {
 				this.registerRecursively(Ember.get(toTraverse, propertyName), path + '.' + propertyName, propsToObserve);
 			}, this);
 		}
@@ -23,7 +23,7 @@ export default Ember.Mixin.create({
 		var initialValues = this.get('_initialValues');
 		initialValues[rootObservedProperty] = this.get(rootObservedProperty);
 		this.set('_initialValues', JSON.parse(JSON.stringify(initialValues)));
-		
+
 		var propertyToAnalyze = this.get(rootObservedProperty),
 			propsToObserve = Ember.A([]),
 			currentDynamicProps = this.get('currentDynamicProps'),
@@ -49,7 +49,7 @@ export default Ember.Mixin.create({
 		this.propertyWillChange('dirtyDictionaryProps');
 		this.get('dirtyDictionaryProps').pushObject({time: timestamp, sender: sender, key: key, value: value, rev: rev});
 		this.propertyDidChange('dirtyDictionaryProps');
-		
+
 		// save changed value to Ember-Data's _attributes hash to give complete view on changed attributes
 		var attributes = this.get('_attributes');
 		if(key.indexOf('@') > -1) {
@@ -66,7 +66,7 @@ export default Ember.Mixin.create({
 		this.propertyWillChange('_attributes');
 		this.set('_attributes', attributes);
 		this.propertyDidChange('_attributes');
-		
+
 		// make the record dirty
 		this.send('becomeDirty');
 	},
@@ -80,7 +80,7 @@ export default Ember.Mixin.create({
 				if(meta.type === "dictionary") {
 					Ember.addObserver(self, prop, self, Ember.run.bind(self, self.addDynamicObserver, prop));
 				}
-			});			
+			});
 		} catch (e) {
 			console.warning('Dictionary mixin did not initialise. Note: the dictionary mixin should only be used by a Model-derived class.');
 		}
@@ -92,11 +92,11 @@ export default Ember.Mixin.create({
 		// and if an Ember managed property is updated on a save() call then it will clear this hash
 		// itself but if the only changed properties are on the dictionary(s) then we need to clean it
 		// up ourselves.
-		var dictionaryProps = Ember.keys(attributes).filter(function(item) {
+		var dictionaryProps = Object.keys(attributes).filter(function(item) {
 			return item.indexOf('.') > -1; // all dictionaries will have a depth of at least two (base dictionary and the prop name)
 		},this);
-		if (dictionaryProps.length !== Ember.keys(attributes).length) {
-			console.log('unexpected leftover "_attributes": %o', Ember.keys(attributes));
+		if (dictionaryProps.length !== Object.keys(attributes).length) {
+			console.log('unexpected leftover "_attributes": %o', Object.keys(attributes));
 		} else {
 			this.propertyWillChange('_attributes');
 			this.set('_attributes', {});
@@ -104,7 +104,7 @@ export default Ember.Mixin.create({
 		}
 		return true;
 	}.on('didUpdate'),
-	
+
 	dirtyDictionaryProps: Ember.A([]),
 	_initialValues: {},
 	currentDynamicProps: Ember.A([])

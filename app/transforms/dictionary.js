@@ -2,7 +2,7 @@ import DS from 'ember-data';
 
 export default DS.Transform.extend({
 	deserialize: function(toTraverse) {
-		console.log('deserialising dictionary');
+		// console.log('deserialising dictionary');
 		var hash;
 		if (Ember.isArray(toTraverse)) {
 			return Ember.A(toTraverse.map(function(item){
@@ -11,7 +11,7 @@ export default DS.Transform.extend({
 		} else if (!Ember.$.isPlainObject(toTraverse)) {
 			return toTraverse;
 		} else {
-			hash = this.generatePlainObject(Ember.keys(toTraverse), Ember.keys(toTraverse).map(function(key) {
+			hash = this.generatePlainObject(Object.keys(toTraverse), Object.keys(toTraverse).map(function(key) {
 				return this.deserialize(Ember.get(toTraverse, key));
 			}, this));
 			return Ember.Object.create(hash);
