@@ -18,7 +18,7 @@ export default DS.Transform.extend({
 		}
 	},
 	serialize: function(deserialized) {
-		console.log('serialising dictionary');
+	//	console.log('serialising dictionary');
 		return deserialized;
 	},
 	generatePlainObject: function(keys, values) {
